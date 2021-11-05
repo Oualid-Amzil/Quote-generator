@@ -8,8 +8,14 @@ const CardList = (props) => {
   return (
     <div className={classes["card-list"]}>
       {" "}
-      {props.monsters.map((monster) => {
-        return <Card monster={monster} key={monster.id} />;
+      {props.quotes.map((quote) => {
+        return (
+          <Card
+            quote={quote}
+            onClick={props.onShowQuote}
+            key={props.quotes.indexOf(quote)}
+          />
+        );
       })}
     </div>
   );

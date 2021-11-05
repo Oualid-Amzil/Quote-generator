@@ -1,0 +1,35 @@
+.blockquote {
+  font-weight: 100;
+  font-size: 30px;
+  max-width: 600px;
+  line-height: 1.4;
+  position: relative;
+  margin: 0;
+  padding: 0.5rem;
+}
+
+.blockquote:before,
+.blockquote:after {
+  position: absolute;
+  color: #000;
+  font-size: 80px;
+  width: 30px;
+  height: 30px;
+}
+
+.blockquote:before {
+  content: "“";
+  left: -50px;
+  top: -20px;
+}
+
+.blockquote:after {
+  content: "”";
+  right: -35px;
+  bottom: 16px;
+}
+
+.cite {
+  line-height: 3;
+  text-align: left;
+}

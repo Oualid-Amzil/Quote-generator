@@ -1,69 +1,43 @@
-import React, { Component } from "react";
+import React, { useEffect, useContext, useState } from "react";
 
 import CardList from "./components/card-list/Card-list.jsx";
-import SearchBox from "./components/search-box/Search-box";
+import Quote from "./components/Quote/Quote";
+import QuoteContext from "./store/quote-context.js";
 
 import "./App.css";
 
-class App extends Component {
-  constructor() {
-    super();
+const App = () => {
+  const [quotes, setQuotes] = useState([]);
 
-    this.state = {
-      monsters: [],
-      searchField: "",
-    };
-  }
+  const quoteCtx = useContext(QuoteContext);
+  // const [searchField, setSearchField] = useState();
 
-  componentDidMount() {
-    fetch("https://jsonplaceholder.typicode.com/users")
+  useEffect(() => {
+    return fetch("https://type.fit/api/quotes")
       .then((response) => response.json())
-      .then((users) => this.setState({ monsters: users }));
-  }
+      .then((data) => setQuotes(data));
+  }, []);
 
-  handleChange = (e) => {
-    this.setState({ searchField: e.target.value });
-  };
+  // const handleChange = (e) => {
+  //   setSearchField(e.target.value);
+  // };
 
-  render() {
-    const { monsters, searchField } = this.state;
+  // const filteredQuotes = quotes.filter((quote) =>
+  //   quote.text.toLowerCase().includes(searchField.toLowerCase())
+  // );
 
-    const filteredMonsters = monsters.filter((monster) =>
-      monster.name.toLowerCase().includes(searchField.toLowerCase())
-    );
-
-    return (
-      <div className="App">
-        <h1>Monsters Rolodex</h1>
-        <SearchBox
-          type="search"
-          placeholder="search monsters"
-          handleChange={this.handleChange}
-        />
-        <CardList monsters={filteredMonsters} />
-      </div>
-    );
-  }
-}
-// function App() {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>
-//           Edit <code>src/App.js</code> and save to reload.
-//         </p>
-//         <a
-//           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Learn React
-//         </a>
-//       </header>
-//     </div>
-//   );
-// }
+  return (
+    <div className="App">
+      <h1>Quotes</h1>
+      {quoteCtx.logeIn && <Quote onHideQuote={quoteCtx.hideQuote} />}
+      {/* <SearchBox
+        type="search"
+        placeholder="search quotes"
+        onHandleChange={handleChange}
+      /> */}
+      <CardList quotes={quotes} onShowQuote={quoteCtx.showQuote} />
+    </div>
+  );
+};
 
 export default App;

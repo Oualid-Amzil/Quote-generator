@@ -8,7 +8,7 @@ const SearchBox = (props) => {
       className={classes.search}
       type={props.type}
       placeholder={props.placeholder}
-      onChange={props.handleChange}
+      onChange={props.onHandleChange}
     />
   );
 };
